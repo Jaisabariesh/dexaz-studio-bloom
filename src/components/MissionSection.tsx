@@ -9,69 +9,158 @@ const milestones = [
   { day: "Day 271–365", title: "Impact", desc: "Capstone projects, industry placement, community leadership roles." },
 ];
 
+const MilestoneCard = ({ milestone, index }: { milestone: typeof milestones[0]; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center center"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const x = useTransform(scrollYProgress, [0, 1], [index % 2 === 0 ? -60 : 60, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ opacity, x, scale }}
+      className={`relative mb-20 md:w-[45%] ${
+        index % 2 === 0 ? "md:mr-auto md:pr-12 md:text-right" : "md:ml-auto md:pl-12"
+      }`}
+    >
+      {/* Dot with pulse */}
+      <motion.div
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
+        className={`absolute top-2 hidden md:block ${
+          index % 2 === 0 ? "right-[-8px]" : "left-[-8px]"
+        }`}
+      >
+        <div className="h-4 w-4 rounded-full border-2 border-foreground bg-background" />
+        <motion.div
+          className="absolute inset-0 rounded-full border border-foreground/30"
+          animate={{ scale: [1, 2.5], opacity: [0.5, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+        />
+      </motion.div>
+
+      {/* Mobile dot */}
+      <motion.div
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        className="absolute left-[18px] top-1 md:hidden"
+      >
+        <div className="h-4 w-4 rounded-full border-2 border-foreground bg-background" />
+      </motion.div>
+
+      <div className="pl-14 md:pl-0">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mb-2 font-display text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground"
+        >
+          {milestone.day}
+        </motion.p>
+        <motion.h3
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="mb-2 font-display text-2xl font-bold text-foreground"
+        >
+          {milestone.title}
+        </motion.h3>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-sm leading-[1.7] text-muted-foreground"
+        >
+          {milestone.desc}
+        </motion.p>
+      </div>
+    </motion.div>
+  );
+};
+
 const MissionSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  const lineHeight = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
+  const lineHeight = useTransform(scrollYProgress, [0.05, 0.85], ["0%", "100%"]);
 
   return (
-    <section id="mission" className="relative py-32 px-6" ref={containerRef}>
-      <div className="container mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-20 text-center"
-        >
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">The Journey</p>
-          <h2 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            Mission <span className="gradient-text">365</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            A year-long transformation from learner to builder to leader.
-          </p>
-        </motion.div>
+    <section id="mission" className="relative py-40 px-6" ref={containerRef}>
+      <div className="mx-auto max-w-5xl">
+        {/* Header */}
+        <div className="mb-24 text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-4 flex items-center justify-center gap-4"
+          >
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="h-px w-10 origin-right bg-foreground/30"
+            />
+            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+              The Journey
+            </p>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="h-px w-10 origin-left bg-foreground/30"
+            />
+          </motion.div>
 
+          <div className="overflow-hidden">
+            <motion.h2
+              initial={{ y: "100%" }}
+              whileInView={{ y: "0%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
+            >
+              Mission 365
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mx-auto mt-5 max-w-md text-muted-foreground"
+          >
+            A year-long transformation from learner to builder to leader.
+          </motion.p>
+        </div>
+
+        {/* Timeline */}
         <div className="relative">
-          {/* Animated line */}
+          {/* Center line */}
           <div className="absolute left-6 top-0 bottom-0 w-px bg-border md:left-1/2 md:-translate-x-px">
             <motion.div
-              className="w-full origin-top"
-              style={{
-                height: lineHeight,
-                background: "linear-gradient(180deg, hsl(265 90% 65%), hsl(330 85% 60%), hsl(210 100% 60%))",
-              }}
+              className="w-full origin-top bg-foreground/20"
+              style={{ height: lineHeight }}
             />
           </div>
 
           {milestones.map((m, i) => (
-            <motion.div
-              key={m.day}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className={`relative mb-16 pl-16 md:w-1/2 md:pl-0 ${
-                i % 2 === 0 ? "md:pr-16 md:text-right" : "md:ml-auto md:pl-16"
-              }`}
-            >
-              {/* Dot */}
-              <div
-                className={`absolute top-1 left-[18px] h-4 w-4 rounded-full border-2 border-primary bg-background md:left-auto ${
-                  i % 2 === 0 ? "md:right-[-8px]" : "md:left-[-8px]"
-                }`}
-              />
-
-              <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-primary">
-                {m.day}
-              </p>
-              <h3 className="mb-2 font-display text-xl font-bold text-foreground">{m.title}</h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{m.desc}</p>
-            </motion.div>
+            <MilestoneCard key={m.day} milestone={m} index={i} />
           ))}
         </div>
       </div>
