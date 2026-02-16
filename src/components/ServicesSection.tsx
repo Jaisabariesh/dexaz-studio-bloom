@@ -87,7 +87,7 @@ const ServiceCard = ({ service, index }: {service: typeof services[0];index: num
 const ServicesSection = () => {
   return (
     <section id="services" className="relative py-40 px-6">
-      <div className="mx-auto max-w-7xl lg:px-4">
+      <div className="mx-auto max-w-7xl lg:px-4 bg-primary-foreground">
         {/* Header */}
         <div className="mb-20 max-w-3xl">
           <motion.div
@@ -103,7 +103,7 @@ const ServicesSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="h-px w-10 origin-left bg-foreground/30" />
 
-            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-primary">
               What We Build
             </p>
           </motion.div>
@@ -132,7 +132,7 @@ const ServicesSection = () => {
           </div>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 bg-[#c2bdbd]">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 bg-primary-foreground">
           {services.map((s, i) =>
           <ServiceCard key={s.title} service={s} index={i} />
           )}
