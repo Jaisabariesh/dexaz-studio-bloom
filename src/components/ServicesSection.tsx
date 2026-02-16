@@ -7,20 +7,20 @@ import {
   Search,
   Megaphone,
   Code2,
-  MessageSquare,
-} from "lucide-react";
+  MessageSquare } from
+"lucide-react";
 
 const services = [
-  { icon: Smartphone, title: "App Development", desc: "Native and cross-platform mobile apps that users love.", num: "01" },
-  { icon: Globe, title: "Web Development", desc: "Blazing-fast, scalable web applications and platforms.", num: "02" },
-  { icon: Palette, title: "UI/UX Design", desc: "Human-centered design that converts and delights.", num: "03" },
-  { icon: Search, title: "SEO Optimization", desc: "Data-driven strategies for organic visibility and growth.", num: "04" },
-  { icon: Megaphone, title: "Digital Marketing", desc: "Performance campaigns across every channel that matters.", num: "05" },
-  { icon: Code2, title: "Custom Software", desc: "Tailored solutions engineered for complex business needs.", num: "06" },
-  { icon: MessageSquare, title: "IT Consulting", desc: "Strategic tech advisory for startups and enterprises.", num: "07" },
-];
+{ icon: Smartphone, title: "App Development", desc: "Native and cross-platform mobile apps that users love.", num: "01" },
+{ icon: Globe, title: "Web Development", desc: "Blazing-fast, scalable web applications and platforms.", num: "02" },
+{ icon: Palette, title: "UI/UX Design", desc: "Human-centered design that converts and delights.", num: "03" },
+{ icon: Search, title: "SEO Optimization", desc: "Data-driven strategies for organic visibility and growth.", num: "04" },
+{ icon: Megaphone, title: "Digital Marketing", desc: "Performance campaigns across every channel that matters.", num: "05" },
+{ icon: Code2, title: "Custom Software", desc: "Tailored solutions engineered for complex business needs.", num: "06" },
+{ icon: MessageSquare, title: "IT Consulting", desc: "Strategic tech advisory for startups and enterprises.", num: "07" }];
 
-const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+
+const ServiceCard = ({ service, index }: {service: typeof services[0];index: number;}) => {
   const ref = useRef<HTMLDivElement>(null);
   const Icon = service.icon;
 
@@ -51,12 +51,12 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
       onMouseMove={handleMouse}
       onMouseLeave={handleLeave}
       className="group cursor-default"
-      style={{ perspective: 600 }}
-    >
+      style={{ perspective: 600 }}>
+
       <motion.div
         style={{ rotateX, rotateY }}
-        className="relative rounded-2xl border border-border bg-card p-8 transition-shadow duration-500 group-hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)]"
-      >
+        className="relative rounded-2xl border border-border p-8 transition-shadow duration-500 group-hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] bg-[#f5f5d6]">
+
         {/* Number */}
         <span className="absolute top-6 right-6 font-display text-xs font-medium text-muted-foreground/40">
           {service.num}
@@ -65,8 +65,8 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         <motion.div
           className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-border"
           whileHover={{ rotate: 15, scale: 1.15 }}
-          transition={{ type: "spring", stiffness: 400, damping: 15 }}
-        >
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}>
+
           <Icon className="h-5 w-5 text-foreground" />
         </motion.div>
 
@@ -77,11 +77,11 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         <motion.div
           initial={{ scaleX: 0 }}
           whileHover={{ scaleX: 1 }}
-          className="mt-6 h-px w-full origin-left bg-foreground/15"
-        />
+          className="mt-6 h-px w-full origin-left bg-foreground/15" />
+
       </motion.div>
-    </motion.div>
-  );
+    </motion.div>);
+
 };
 
 const ServicesSection = () => {
@@ -94,15 +94,15 @@ const ServicesSection = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mb-4 flex items-center gap-4"
-          >
+            className="mb-4 flex items-center gap-4">
+
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-px w-10 origin-left bg-foreground/30"
-            />
+              className="h-px w-10 origin-left bg-foreground/30" />
+
             <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
               What We Build
             </p>
@@ -114,8 +114,8 @@ const ServicesSection = () => {
               whileInView={{ y: "0%" }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
-            >
+              className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+
               Services that move
             </motion.h2>
           </div>
@@ -125,21 +125,21 @@ const ServicesSection = () => {
               whileInView={{ y: "0%" }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-4xl font-bold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl"
-            >
+              className="font-display text-4xl font-bold tracking-tight text-muted-foreground sm:text-5xl lg:text-6xl">
+
               the needle.
             </motion.h2>
           </div>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
-            <ServiceCard key={s.title} service={s} index={i} />
-          ))}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 bg-[#c2bdbd]">
+          {services.map((s, i) =>
+          <ServiceCard key={s.title} service={s} index={i} />
+          )}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default ServicesSection;
